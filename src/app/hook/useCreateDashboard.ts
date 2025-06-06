@@ -5,7 +5,7 @@ import axiosInstance from "../services/axiosInstance";
 import toast from "react-hot-toast";
 import { UseCreateWhiteBoardType } from "@/types/hook.type";
 
-export const useCreateDashboard = (): UseCreateWhiteBoardType => {
+export const useCreateWhiteBoard = (): UseCreateWhiteBoardType => {
   const router = useRouter();
   const { user } = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -13,7 +13,7 @@ export const useCreateDashboard = (): UseCreateWhiteBoardType => {
   const handleCreateWhiteBoard = async (title: string) => {
     setIsLoading(true);
     try {
-      const res = await axiosInstance.post("whiteboards", {
+      const res = await axiosInstance.post("whiteboard", {
         title,
         userId: user?.id,
       });

@@ -2,12 +2,15 @@
 import { SignInButton, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useAddUser } from "./hook/useAddUser";
 
 export default function Home() {
   const { isSignedIn } = useUser();
   const router = useRouter();
+  const { addUser } = useAddUser();
   useEffect(() => {
     if (isSignedIn) {
+      addUser();
       router.push("/dashboard");
     }
   }, [isSignedIn]);
