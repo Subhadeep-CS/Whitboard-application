@@ -6,7 +6,7 @@ const WhiteBoardPage = async ({
   params: Promise<{ boardId: string }>;
 }) => {
   const { boardId } = await params;
-  return <WhiteBoard />;
+  return <WhiteBoard boardId={boardId} />;
 };
 
 export default WhiteBoardPage;

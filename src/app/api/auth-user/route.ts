@@ -22,5 +22,28 @@ export async function POST() {
     });
   }
 
-  return NextResponse.json({ message: "User synced" });
+  return NextResponse.json({ message: "User data  saved" });
+}
+
+export async function GET() {
+  const user = await currentUser();
+
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const dbUser = await prisma.user.findUnique({
+    where: { clerkId: user.id },
+  });
+
+  if (!dbUser) {
+    return NextResponse.json({ message: "User not found" }, { status: 404 });
+  }
+
+  const userWhiteBoardsData = await prisma.whiteboard.findMany({
+    where: { userId: dbUser.id },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return NextResponse.json(userWhiteBoardsData);
 }

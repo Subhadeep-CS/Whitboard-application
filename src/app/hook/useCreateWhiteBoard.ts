@@ -17,7 +17,7 @@ export const useCreateWhiteBoard = (): UseCreateWhiteBoardType => {
         title,
         userId: user?.id,
       });
-      router.push(`/whiteboard/${res.data.id}`);
+      router.push(`/white-board/${res.data.id}`);
     } catch (error) {
       console.log(error);
       toast.error("Error to creating whiteboard");

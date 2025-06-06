@@ -1,12 +1,8 @@
-"use client";
 import { useEffect } from "react";
-import axiosInstance from "@/app/services/axiosInstance";
-import { Tldraw, useEditor } from "tldraw";
-import "tldraw/tldraw.css";
+import axiosInstance from "../services/axiosInstance";
+import { Editor } from "tldraw";
 
-const WhiteBoardAutoSaver: React.FC<{ boardId: string }> = ({ boardId }) => {
-  const editor = useEditor();
-
+export const useWhiteBoardAutoSave = (boardId: string, editor: Editor) => {
   useEffect(() => {
     if (!editor || !boardId) {
       return;
@@ -18,6 +14,7 @@ const WhiteBoardAutoSaver: React.FC<{ boardId: string }> = ({ boardId }) => {
       try {
         await axiosInstance.patch(`whiteboard/${boardId}`, {
           content: snapShot,
+          state: "draft",
         });
         console.log("Save triggering");
       } catch (error) {
@@ -32,18 +29,4 @@ const WhiteBoardAutoSaver: React.FC<{ boardId: string }> = ({ boardId }) => {
 
     return () => editorListner();
   }, [editor, boardId]);
-
-  return null;
 };
-
-const WhiteBoard: React.FC<{ boardId: string }> = ({ boardId }) => {
-  return (
-    <div style={{ position: "fixed", inset: 0 }}>
-      <Tldraw persistenceKey={boardId}>
-        <WhiteBoardAutoSaver boardId={boardId} />
-      </Tldraw>
-    </div>
-  );
-};
-
-export default WhiteBoard;
