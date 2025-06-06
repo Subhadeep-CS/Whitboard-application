@@ -12,6 +12,7 @@ import { UserDesignDataType } from "@/types/component.type";
 import { DashboardTableHeaderType } from "@/types/constant.type";
 import { DASHBOARD_TABLE_HEADER } from "@/utils/constant";
 import { Loader2Icon } from "lucide-react";
+import Alert from "../common/Alert";
 const DashboardTable = () => {
   const { whiteBoardsData, isLoading } = useUsersWhiteBoardsData();
 
@@ -47,6 +48,9 @@ const DashboardTable = () => {
               <TableCell>{userData.state}</TableCell>
               <TableCell>
                 {new Date(userData.updatedAt).toLocaleDateString()}
+              </TableCell>
+              <TableCell>
+                <Alert designId={userData.id} />
               </TableCell>
             </TableRow>
           ))
