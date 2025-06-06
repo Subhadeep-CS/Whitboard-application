@@ -125,3 +125,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+.section-padding{
+  @apply py-5
+}
+.container{
+    @apply max-w-[1200px] mx-auto
+  }

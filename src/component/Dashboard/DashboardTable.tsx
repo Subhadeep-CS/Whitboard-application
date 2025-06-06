@@ -7,11 +7,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { DashboardTableHeaderType } from "@/types/constant.types";
+import { DashboardTableHeaderType } from "@/types/constant.type";
 import { DASHBOARD_TABLE_HEADER } from "@/utils/constant";
 const DashboardTable = () => {
   return (
-    <Table>
+    <Table className="w-[1000px]">
       <TableCaption>A list of your recent drawings.</TableCaption>
       <TableHeader>
         <TableRow>

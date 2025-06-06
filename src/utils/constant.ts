@@ -1,4 +1,4 @@
-import { DashboardTableHeaderType } from "@/types/constant.types";
+import { DashboardTableHeaderType } from "@/types/constant.type";
 
 export const DASHBOARD_TABLE_HEADER: DashboardTableHeaderType[] = [
   {
