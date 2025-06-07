@@ -12,6 +12,9 @@ export const DASHBOARD_TABLE_HEADER: DashboardTableHeaderType[] = [
     name: "Last Modified",
   },
   {
+    name: "Publish",
+  },
+  {
     name: "Action",
   },
 ];

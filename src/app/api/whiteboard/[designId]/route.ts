@@ -14,8 +14,11 @@ export async function PATCH(
     const whiteboard = await prisma.whiteboard.update({
       where: { id: params.designId },
       data: {
-        content,
-        state: state || "draft",
+        ...(content && { content }),
+        ...(state && {
+          state,
+          isPublic: state === "publish",
+        }),
       },
     });
 

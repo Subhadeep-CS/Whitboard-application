@@ -1,6 +1,6 @@
 export interface UserDesignDataType {
   title: string;
-  state: string;
+  state: "draft" | "publish";
   updatedAt: string;
   id: string;
 }
