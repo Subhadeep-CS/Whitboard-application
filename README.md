@@ -19,7 +19,7 @@ Save whiteboards in Draft or Published state Completed
 Delete whiteboards Completed
 
 
-View a list of their whiteboards with filters for Draft/Published
+View a list of their whiteboards with filters for Draft/Published completed
 
 
 3. Whiteboard Editor
@@ -30,10 +30,10 @@ Real-time canvas editing with autosave to the database completed
 
 
 4. Sharing
-Generate a public shareable link for any published whiteboard
+Generate a public shareable link for any published whiteboard completed
 
 
-Shared boards are read-only for public viewers
+Shared boards are read-only for public viewers completed
 
 
 5. Pin & Comment Feature

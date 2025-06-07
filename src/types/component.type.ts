@@ -3,4 +3,5 @@ export interface UserDesignDataType {
   state: "draft" | "publish";
   updatedAt: string;
   id: string;
+  slug: string | null;
 }

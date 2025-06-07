@@ -1,3 +1,4 @@
+import { generateSlug } from "@/utils/helper";
 import { prisma } from "@/utils/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
@@ -34,6 +35,7 @@ export async function POST(request: Request) {
         state: "draft",
         userId: dbUser.id,
         content: { id: "abc", pages: {}, pageState: {} },
+        slug: generateSlug(title),
       },
     });
 

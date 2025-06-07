@@ -16,6 +16,7 @@ import { DASHBOARD_TABLE_HEADER } from "@/utils/constant";
 import { Loader2Icon } from "lucide-react";
 import Alert from "../common/Alert";
 import { useStatusUpdate } from "@/app/hook/useStatusUpdate";
+import { ShareLinkDialogModal } from "./ShareLinkDialogModal";
 const DashboardTable = () => {
   const { whiteBoardsData, isLoading } = useUsersWhiteBoardsData();
   const { handleSubmitPublish, isLoading: isPublishSubmit } = useStatusUpdate();
@@ -72,6 +73,7 @@ const DashboardTable = () => {
               </TableCell>
               <TableCell>
                 <Alert designId={userData.id} />
+                <ShareLinkDialogModal slug={userData.slug} />
               </TableCell>
             </TableRow>
           ))

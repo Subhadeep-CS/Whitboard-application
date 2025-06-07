@@ -13,7 +13,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Share2 } from "lucide-react";
 
-export const ShareLinkDialogModal = () => {
+export const ShareLinkDialogModal = ({ slug }: { slug: string | null }) => {
+  const shareableUrl = `${process.env.NEXT_PUBLIC_APP_URL}/public-board/${slug}/view/`;
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -21,7 +23,7 @@ export const ShareLinkDialogModal = () => {
           <Share2 />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md !px-4 !py-4">
         <DialogHeader>
           <DialogTitle>Share link</DialogTitle>
           <DialogDescription>
@@ -33,11 +35,7 @@ export const ShareLinkDialogModal = () => {
             <Label htmlFor="link" className="sr-only">
               Link
             </Label>
-            <Input
-              id="link"
-              defaultValue="https://ui.shadcn.com/docs/installation"
-              readOnly
-            />
+            <Input id="link" defaultValue={shareableUrl} readOnly />
           </div>
         </div>
         <DialogFooter className="sm:justify-start">
