@@ -5,6 +5,7 @@ import axiosInstance from "@/app/services/axiosInstance";
 import { Tldraw, useEditor } from "tldraw";
 import "tldraw/tldraw.css";
 import { useComments } from "@/app/hook/useComments";
+import { useThrottle } from "@/app/hook/useThrottle";
 
 const WhiteBoardAutoSaver: React.FC<{ boardId: string }> = ({ boardId }) => {
   const editor = useEditor();
@@ -13,24 +14,25 @@ const WhiteBoardAutoSaver: React.FC<{ boardId: string }> = ({ boardId }) => {
   const [newPin, setNewPin] = useState<{ x: number; y: number } | null>(null);
   const [commentText, setCommentText] = useState<string>("");
 
-  // Auto-save effect
+  const handleAutoSave = async () => {
+    const snapShot = editor.store.getStoreSnapshot();
+
+    try {
+      await axiosInstance.patch(`whiteboard/${boardId}`, {
+        content: snapShot,
+      });
+      console.log("Save triggering");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const delayThrottleAutosave = useThrottle(handleAutoSave, 1000);
+
   useEffect(() => {
     if (!editor) return;
 
-    const handleAutoSave = async () => {
-      const snapShot = editor.store.getStoreSnapshot();
-
-      try {
-        await axiosInstance.patch(`whiteboard/${boardId}`, {
-          content: snapShot,
-        });
-        console.log("Save triggering");
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    const editorListener = editor.store.listen(handleAutoSave, {
+    const editorListener = editor.store.listen(delayThrottleAutosave, {
       source: "user",
       scope: "document",
     });
@@ -73,7 +75,6 @@ const WhiteBoardAutoSaver: React.FC<{ boardId: string }> = ({ boardId }) => {
 
   if (!editor) return null;
 
-  // Get camera options for rendering comments and newPin
   const camera = editor.getCameraOptions() as unknown as {
     point: { x: number; y: number };
     zoom: number;
@@ -85,7 +86,6 @@ const WhiteBoardAutoSaver: React.FC<{ boardId: string }> = ({ boardId }) => {
   return (
     <>
       {comments.map((comment) => {
-        // Convert comment world position to screen position
         const screenX = (comment.x - center.x) * zoom + bounds.width / 2;
         const screenY = (comment.y - center.y) * zoom + bounds.height / 2;
 

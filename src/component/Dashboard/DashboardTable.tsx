@@ -21,13 +21,16 @@ import { Label } from "@/components/ui/label";
 import { UserDesignDataType } from "@/types/component.type";
 import { DashboardTableHeaderType } from "@/types/constant.type";
 import { DASHBOARD_TABLE_HEADER } from "@/utils/constant";
-import { Loader2Icon } from "lucide-react";
+import { Loader2Icon, PenIcon } from "lucide-react";
 import Alert from "../common/Alert";
 import { useStatusUpdate } from "@/app/hook/useStatusUpdate";
 import { ShareLinkDialogModal } from "./ShareLinkDialogModal";
 import { useState, useMemo } from "react";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const DashboardTable = () => {
+  const router = useRouter();
   const { whiteBoardsData, isLoading, refetch } = useUsersWhiteBoardsData();
   const { handleSubmitPublish, isLoading: isPublishSubmit } = useStatusUpdate();
   const [filter, setFilter] = useState<"all" | "draft" | "publish">("all");
@@ -116,6 +119,14 @@ const DashboardTable = () => {
                     </div>
                   </TableCell>
                   <TableCell>
+                    <Button
+                      variant={"secondary"}
+                      size={"icon"}
+                      className="size-8"
+                      onClick={() => router.push(`white-board/${userData.id}`)}
+                    >
+                      <PenIcon />
+                    </Button>
                     <Alert designId={userData.id} refetch={refetch} />
                     {userData.state === "publish" && (
                       <ShareLinkDialogModal slug={userData.slug} />
