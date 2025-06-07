@@ -99,7 +99,7 @@ const DashboardTable = () => {
                   </TableCell>
                   <TableCell>{userData.state}</TableCell>
                   <TableCell>
-                    {new Date(userData.updatedAt).toLocaleDateString()}
+                    {new Date(userData.updatedAt).toLocaleString("en-GB")}
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center space-x-2">
@@ -118,7 +118,7 @@ const DashboardTable = () => {
                       </Label>
                     </div>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="!space-x-2">
                     <Button
                       variant={"secondary"}
                       size={"icon"}

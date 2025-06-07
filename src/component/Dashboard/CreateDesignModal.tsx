@@ -36,7 +36,7 @@ const CreateDesignModal = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant={"outline"} size={"sm"} className="">
+        <Button variant={"outline"} size={"sm"} className="!px-4 !py-2">
           <PlusIcon /> Create Whiteboard
         </Button>
       </DialogTrigger>
