@@ -1,6 +1,8 @@
 import CreateDesignModal from "@/component/Dashboard/CreateDesignModal";
 import DashboardTable from "@/component/Dashboard/DashboardTable";
 
+export const dynamic = "force-dynamic";
+
 const DashboardPage = () => {
   return (
     <section className="section-padding">

@@ -14,12 +14,16 @@ import { Button } from "@/components/ui/button";
 import { Loader2Icon, TrashIcon } from "lucide-react";
 import { useState } from "react";
 
-const Alert: React.FC<{ designId: string }> = ({ designId }) => {
+const Alert: React.FC<{ designId: string; refetch: () => void }> = ({
+  designId,
+  refetch,
+}) => {
   console.log("designid", designId);
   const [alertOpen, setAlertOpen] = useState<boolean>(false);
   const { handleDeleteWhiteboardByID, isLoading } = useDeleteWhiteboard();
   const handleDeleteDesign = async () => {
     await handleDeleteWhiteboardByID(designId);
+    refetch();
     setAlertOpen(false);
   };
   return (
@@ -38,8 +42,8 @@ const Alert: React.FC<{ designId: string }> = ({ designId }) => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDeleteDesign}>
+          <AlertDialogCancel className="!px-4">Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={handleDeleteDesign} className="!px-4">
             {isLoading ? (
               <span>
                 <Loader2Icon className="animate-spin" />

@@ -13,7 +13,7 @@ export const useUsersWhiteBoardsData = () => {
     setIsLoading(true);
     try {
       const res = await axiosInstance.get("auth-user");
-      setWhiteBoardsData(res.data);
+      setWhiteBoardsData([...res.data]);
     } catch (error) {
       console.log("failed to fetch", error);
     } finally {
@@ -25,5 +25,10 @@ export const useUsersWhiteBoardsData = () => {
     fetchUserWhiteBoards();
   }, []);
 
-  return { whiteBoardsData, isLoading };
+  const refetch = () => {
+    console.log("call");
+    fetchUserWhiteBoards();
+  };
+
+  return { whiteBoardsData, isLoading, refetch };
 };
