@@ -25,8 +25,14 @@ const CreateDesignModal = () => {
     setTitle(e.target.value);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleCreateButtonClick();
+    }
+  };
   const handleCreateButtonClick = () => {
-    if (!title) {
+    if (!title.trim()) {
       setError("*Please enter title to proceed");
       return;
     }
@@ -60,6 +66,7 @@ const CreateDesignModal = () => {
               onChange={handleTitleChange}
               required
               onFocus={() => setError("")}
+              onKeyDown={handleKeyDown}
             />
             {error ? <p className="text-red-500">{error}</p> : null}
           </div>
