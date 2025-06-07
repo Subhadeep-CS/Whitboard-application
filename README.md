@@ -1,3 +1,22 @@
+## Clone from the git link
+
+# npm i
+
+# npm run dev
+
+# run on the localhost:3000
+
+
+
+
+POSTGRE SETUP
+
+VERSION 17
+HOISTED AWS SIGNAPORE
+
+TLDRAW 3.13
+
+
 ✅ Features:
 1. User Authentication
 Powered by Clerk Completed
