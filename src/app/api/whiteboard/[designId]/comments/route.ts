@@ -4,11 +4,12 @@ import { currentUser } from "@clerk/nextjs/server";
 
 export async function GET(
   request: Request,
-  { params }: { params: { designId: string } }
+  { params }: { params: Promise<{ designId: string }> }
 ) {
+  const { designId } = await params;
   try {
     const comments = await prisma.comment.findMany({
-      where: { whiteboardId: params.designId },
+      where: { whiteboardId: designId },
       include: { author: true },
       orderBy: { createdAt: "asc" },
     });
@@ -24,8 +25,9 @@ export async function GET(
 
 export async function POST(
   request: Request,
-  { params }: { params: { designId: string } }
+  { params }: { params: Promise<{ designId: string }> }
 ) {
+  const { designId } = await params;
   const user = await currentUser();
   if (!user)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -49,7 +51,7 @@ export async function POST(
         text,
         x,
         y,
-        whiteboardId: params.designId,
+        whiteboardId: designId,
         authorId: dbUser.id,
       },
       include: {

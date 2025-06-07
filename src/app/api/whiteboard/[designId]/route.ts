@@ -5,14 +5,15 @@ import { revalidatePath } from "next/cache";
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { designId: string } }
+  { params }: { params: Promise<{ designId: string }> }
 ) {
   try {
+    const { designId } = await params;
     const body = await request.json();
     const { content, state } = body;
 
     const whiteboard = await prisma.whiteboard.update({
-      where: { id: params.designId },
+      where: { id: designId },
       data: {
         ...(content && { content }),
         ...(state && {
@@ -34,7 +35,7 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { designId: string } }
+  { params }: { params: Promise<{ designId: string }> }
 ) {
   const user = await currentUser();
 
@@ -51,7 +52,7 @@ export async function DELETE(
   }
 
   try {
-    const designId = params.designId;
+    const { designId } = await params;
     const whiteboard = await prisma.whiteboard.findUnique({
       where: { id: designId },
     });
